@@ -7,9 +7,10 @@
     :license: see LICENSE for more details.
 """
 
-from flask import Flask
+from flask import Flask, request, g
 from boradevan.blueprints.auth import auth
 from boradevan.blueprints.itinerary import itinerary
+from boradevan.models.user import User
 from boradevan.db import db, setup_database
 
 
@@ -22,6 +23,15 @@ def create_app(config):
 
     with app.app_context():
         setup_database(db)
+
+    @app.before_request
+    def auth_token():
+        token = request.headers.get('Authorization')
+        if not token:
+            return
+
+        payload = User.decode_token(token, app.config['SECRET_KEY'])
+        g.user = User.get_by_email(payload['email'])
 
     @app.route('/')
     def home():

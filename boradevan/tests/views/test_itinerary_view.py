@@ -9,10 +9,18 @@
 
 from flask import url_for, json
 from boradevan.tests import AppTestCase
+from boradevan.models.user import User
 from boradevan.models.itinerary import Itinerary
 
 
 class ItineraryViewTestCase(AppTestCase):
+
+    def setUp(self):
+        self.test_user = User(email='test@example.com')
+        User.insert(self.test_user)
+
+        secret_key = self.app.config['SECRET_KEY']
+        self.test_user_token = self.test_user.generate_token(secret_key)
 
     def test_create_itinerary(self):
         url = url_for('itinerary.create')
@@ -30,7 +38,8 @@ class ItineraryViewTestCase(AppTestCase):
                 'lng': -45.8796
             }
         }), headers={
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': self.test_user_token
         })
 
         self.assertEqual(response.status_code, 201)

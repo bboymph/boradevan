@@ -7,7 +7,8 @@
     :license: see LICENSE for more details.
 """
 
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, g, request, jsonify
+from boradevan.permissions import login_required
 from boradevan.schemas.itinerary import ItinerarySchema
 from boradevan.models.itinerary import Itinerary
 
@@ -16,6 +17,7 @@ itinerary = Blueprint('itinerary', __name__)
 
 
 @itinerary.route('/', methods=['POST'])
+@login_required
 def create():
     data = request.get_json()
 
@@ -27,7 +29,7 @@ def create():
             'errors': errors
         }), 400
 
-    result = Itinerary.insert(Itinerary(**data))
+    result = Itinerary.insert(Itinerary(owner=g.user['email'], **data))
 
     return jsonify({
         'id': result['generated_keys']
