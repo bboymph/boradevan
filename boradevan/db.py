@@ -15,7 +15,8 @@ from werkzeug.local import LocalProxy
 _tables = {
     'users': {
         'primary_key': 'email'
-    }
+    },
+    'itineraries': {}
 }
 
 

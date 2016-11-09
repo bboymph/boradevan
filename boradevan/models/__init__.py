@@ -32,3 +32,11 @@ class BaseModel(dict):
                .run(db)
 
         return cls(**doc)
+
+    @classmethod
+    def find_one(cls, filters):
+        for doc in r.table(cls.table_name) \
+                    .filter(filters) \
+                    .limit(1) \
+                    .run(db):
+            return doc

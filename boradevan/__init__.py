@@ -9,6 +9,7 @@
 
 from flask import Flask
 from boradevan.blueprints.auth import auth
+from boradevan.blueprints.itinerary import itinerary
 from boradevan.db import db, setup_database
 
 
@@ -27,5 +28,6 @@ def create_app(config):
         return 'ok'
 
     app.register_blueprint(auth, url_prefix='/auth')
+    app.register_blueprint(itinerary, url_prefix='/itinerary')
 
     return app
