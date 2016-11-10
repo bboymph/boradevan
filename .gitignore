@@ -1,2 +1,4 @@
 *.py[co]
 .coverage
+.idea
+env

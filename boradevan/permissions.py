@@ -12,7 +12,6 @@ from flask import g, jsonify
 
 
 def login_required(fn):
-    print('abacate')
     @wraps(fn)
     def wrapped_fn(*args, **kwargs):
         if 'user' not in g or g.user is None:

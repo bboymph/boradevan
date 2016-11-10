@@ -16,7 +16,10 @@ _tables = {
     'users': {
         'primary_key': 'email'
     },
-    'itineraries': {}
+    'itineraries': {},
+    'passengers': {
+        'primary_key': 'email'
+    }
 }
 
 
