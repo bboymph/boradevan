@@ -31,7 +31,6 @@ class DriverViewTestCase(AppTestCase):
         driver = Driver.find_one({
             'name': 'driver1',
             'email': 'driver1@example.com',
-            'password': 'secret123',
             'phone': '12345678'
         })
 

@@ -8,6 +8,8 @@
 """
 
 from flask import Blueprint, request, jsonify
+
+from boradevan.models.user import User
 from boradevan.schemas.driver import DriverSchema
 from boradevan.models.driver import Driver
 
@@ -27,13 +29,22 @@ def create():
             'errors': errors
         }), 400
 
+
     driver = Driver(**data)
+
+    user = User(name=driver['name'], email=driver['email'])
+    user.set_access_type('driver')
+    user.set_password(driver['password'])
+
+    del driver['password']
     result = Driver.insert(driver)
 
     if result['errors']:
         return jsonify({
             'errors': result['first_error']
         }), 409
+
+    User.insert(user)
 
     return jsonify({
         'email': driver['email']
