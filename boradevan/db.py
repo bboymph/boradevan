@@ -19,6 +19,9 @@ _tables = {
     'itineraries': {},
     'passengers': {
         'primary_key': 'email'
+    },
+    'drivers': {
+        'primary_key': 'email'
     }
 }
 
