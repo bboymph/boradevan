@@ -17,6 +17,7 @@ class ItineraryViewTestCase(AppTestCase):
 
     def setUp(self):
         self.test_user = User(email='test@example.com')
+        self.test_user.set_access_type('passenger')
         User.insert(self.test_user)
 
         secret_key = self.app.config['SECRET_KEY']

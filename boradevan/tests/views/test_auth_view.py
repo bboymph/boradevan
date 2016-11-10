@@ -18,6 +18,7 @@ class AuthViewTestCase(AppTestCase):
         super(AuthViewTestCase, self).setUp()
 
         self.user1 = User(email='test@example.com')
+        self.user1.set_access_type('passenger')
         self.user1.set_password('secret123')
 
         User.insert(self.user1)
@@ -25,6 +26,7 @@ class AuthViewTestCase(AppTestCase):
     def test_user_auth_ok(self):
         response = self.client.post(url_for('auth.login'), data=json.dumps({
             'email': 'test@example.com',
+            'access_type': 'passenger',
             'password': 'secret123'
         }), headers={
             'Content-Type': 'application/json'
@@ -36,6 +38,7 @@ class AuthViewTestCase(AppTestCase):
     def test_user_auth_fail(self):
         response = self.client.post(url_for('auth.login'), data=json.dumps({
             'email': 'test@example.com',
+            'access_type': 'passenger',
             'password': 'wrong789'
         }), headers={
             'Content-Type': 'application/json'

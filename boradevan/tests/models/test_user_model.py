@@ -15,6 +15,7 @@ class UserModelTestCase(TestCase):
 
     def test_token(self):
         user = User(email='test@example.com')
+        user.set_access_type('passenger')
         token = user.generate_token('secret123')
 
         self.assertIsNotNone(token)
@@ -22,10 +23,11 @@ class UserModelTestCase(TestCase):
         data = User.decode_token(token, 'secret123')
 
         self.assertEqual(data['email'], 'test@example.com')
+        self.assertEqual(data['access_type'], 'passenger')
 
     def test_password(self):
         user = User(email='test@example.com')
-
+        user.set_access_type('passenger')
         user.set_password('secret123')
 
         self.assertNotEqual(user['password'], 'secret123')
