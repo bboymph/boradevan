@@ -41,6 +41,13 @@ def setup_database(db):
         r.table_create(table_name, **options).run(db)
 
 
+def drop_database(db):
+    db_name = current_app.config['DATABASE_NAME']
+
+    if db_name in r.db_list().run(db):
+        r.db_drop(db_name).run(db)
+
+
 def _db():
     db_conn = r.connect(
         current_app.config['DATABASE_HOST'],
