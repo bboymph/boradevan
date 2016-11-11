@@ -9,7 +9,10 @@
 
 from flask import Blueprint, g, request, jsonify
 from boradevan.permissions import login_required
-from boradevan.schemas.itinerary import ItinerarySchema
+from boradevan.schemas.itinerary import (
+        ItinerarySchema,
+        ItineraryAddPartnerSchema
+)
 from boradevan.models.itinerary import Itinerary
 from boradevan.models.driver import Driver
 
@@ -33,10 +36,15 @@ def create():
     itinerary = Itinerary(owner=g.user['email'],
                           drivers=[],
                           passengers=[], **data)
-    result = Itinerary.insert(itinerary)
+    result = Itinerary.insert(itinerary, return_changes=True)
+
+    itinerary = Itinerary(**result['changes'][0]['new_val'])
+
+    g.user.insert_itinerary(itinerary)
+    Driver.update(g.user)
 
     return jsonify({
-        'id': result['generated_keys']
+        'id': itinerary.get_id()
     }), 201
 
 
@@ -45,14 +53,29 @@ def create():
 def add_partner(itinerary_id):
     data = request.get_json()
 
-    driver = Driver(**data)
-    itinerary = Itinerary()
-    result = itinerary.add_partner(itinerary_id, email=driver)
+    itinerary = Itinerary.get_by_key(itinerary_id)
 
-    if result['errors']:
+    if not itinerary:
         return jsonify({
-            'error': result['first_error']
+            'errors': ['Itinerary not found']
+        }), 404
+
+    schema = ItineraryAddPartnerSchema(strict=True)
+    data, errors = schema.load(data)
+
+    if errors:
+        return jsonify({
+            'errors': errors
         }), 409
+
+    driver = Driver.get_by_email(data['email'])
+    if not driver:
+        return jsonify({
+            'errors': ['Driver not found.']
+        }), 404
+
+    itinerary.add_partner(driver)
+    Itinerary.update(itinerary)
 
     return jsonify({
         'id': itinerary_id

@@ -32,3 +32,8 @@ class ItinerarySchema(Schema):
     @validates('end_time')
     def validate_end_time(self, data):
         self._validate_time(data)
+
+
+class ItineraryAddPartnerSchema(Schema):
+
+    email = fields.Email(required=True)

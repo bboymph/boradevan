@@ -13,16 +13,27 @@ from boradevan.db import db
 
 class BaseModel(dict):
 
+    id_field = 'id'
     table_name = None
 
     def __init__(self, **kwargs):
         for key, value in kwargs.items():
             self[key] = value
 
+    def get_id(self):
+        return self[self.id_field]
+
     @classmethod
-    def insert(cls, obj):
+    def insert(cls, obj, **kwargs):
         return r.table(cls.table_name) \
-                .insert(obj) \
+                .insert(obj, **kwargs) \
+                .run(db)
+
+    @classmethod
+    def update(cls, obj):
+        return r.table(cls.table_name) \
+                .get(obj[cls.id_field]) \
+                .update(obj) \
                 .run(db)
 
     @classmethod

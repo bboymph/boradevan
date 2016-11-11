@@ -16,6 +16,9 @@ class Driver(User):
 
     table_name = 'users'
 
-    def __init__(self, **kwargs):
-        super(Driver, self).__init__(**kwargs)
+    def __init__(self, itineraries=[], **kwargs):
+        super(Driver, self).__init__(itineraries=itineraries, **kwargs)
         self.set_access_type(Driver.USER_TYPE)
+
+    def insert_itinerary(self, itinerary):
+        self['itineraries'].append(itinerary['id'])

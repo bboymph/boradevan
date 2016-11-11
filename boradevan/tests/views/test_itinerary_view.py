@@ -9,22 +9,18 @@
 
 from flask import url_for, json
 from boradevan.tests import AppTestCase
-from boradevan.models.user import User
+from boradevan.models.driver import Driver
 from boradevan.models.itinerary import Itinerary
 
 
-class ItineraryViewTestCase(AppTestCase):
+class ItineraryCreateViewTestCase(AppTestCase):
 
     def setUp(self):
-        self.test_user = User(email='test@example.com')
-        self.test_user.set_access_type('driver')
-        User.insert(self.test_user)
+        self.test_driver = Driver(email='test@example.com')
+        Driver.insert(self.test_driver)
 
         secret_key = self.app.config['SECRET_KEY']
-        self.test_user_token = self.test_user.generate_token(secret_key)
-
-        self.test_itinerary = Itinerary(id='1', name='test_itinerary', drivers=[])
-        Itinerary.insert(self.test_itinerary)
+        self.test_driver_token = self.test_driver.generate_token(secret_key)
 
     def test_create_itinerary(self):
         url = url_for('itinerary.create')
@@ -43,7 +39,7 @@ class ItineraryViewTestCase(AppTestCase):
             }
         }), headers={
             'Content-Type': 'application/json',
-            'Authorization': self.test_user_token
+            'Authorization': self.test_driver_token
         })
 
         self.assertEqual(response.status_code, 201)
@@ -59,20 +55,36 @@ class ItineraryViewTestCase(AppTestCase):
                 'state': 'AB',
                 'lat': -27.4578,
                 'lng': -45.8796
-            }
+            },
+            'owner': 'test@example.com',
+            'drivers': []
         })
 
         self.assertIsNotNone(itinerary)
+
+
+class ItineraryAddPartnerTestCase(AppTestCase):
+
+    def setUp(self):
+        super(ItineraryAddPartnerTestCase, self).setUp()
+
+        self.test_driver = Driver(email='test@example.com')
+        Driver.insert(self.test_driver)
+
+        secret_key = self.app.config['SECRET_KEY']
+        self.test_driver_token = self.test_driver.generate_token(secret_key)
+
+        self.test_itinerary = Itinerary(id='1', name='test_itinerary')
+        Itinerary.insert(self.test_itinerary)
 
     def test_add_partner_itinerary(self):
         url = url_for('itinerary.add_partner', itinerary_id='1')
 
         response = self.client.post(url, data=json.dumps({
-            'name': 'motorista parceiro',
-            'email': 'partner@example.com'
+            'email': 'test@example.com'
         }), headers={
             'Content-Type': 'application/json',
-            'Authorization': self.test_user_token
+            'Authorization': self.test_driver_token
         })
 
         self.assertEqual(response.status_code, 201)

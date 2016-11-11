@@ -14,6 +14,7 @@ from boradevan.models import BaseModel
 
 class User(BaseModel):
 
+    id_field = 'email'
     table_name = 'users'
 
     def set_password(self, password):
