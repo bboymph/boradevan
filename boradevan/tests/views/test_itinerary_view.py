@@ -17,11 +17,14 @@ class ItineraryViewTestCase(AppTestCase):
 
     def setUp(self):
         self.test_user = User(email='test@example.com')
-        self.test_user.set_access_type('passenger')
+        self.test_user.set_access_type('driver')
         User.insert(self.test_user)
 
         secret_key = self.app.config['SECRET_KEY']
         self.test_user_token = self.test_user.generate_token(secret_key)
+
+        self.test_itinerary = Itinerary(id='1', name='test_itinerary', drivers=[])
+        Itinerary.insert(self.test_itinerary)
 
     def test_create_itinerary(self):
         url = url_for('itinerary.create')
@@ -60,3 +63,16 @@ class ItineraryViewTestCase(AppTestCase):
         })
 
         self.assertIsNotNone(itinerary)
+
+    def test_add_partner_itinerary(self):
+        url = url_for('itinerary.add_partner', itinerary_id='1')
+
+        response = self.client.post(url, data=json.dumps({
+            'name': 'motorista parceiro',
+            'email': 'partner@example.com'
+        }), headers={
+            'Content-Type': 'application/json',
+            'Authorization': self.test_user_token
+        })
+
+        self.assertEqual(response.status_code, 201)
