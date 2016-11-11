@@ -12,4 +12,7 @@ from boradevan.models.user import User
 
 class Passenger(User):
 
-    table_name = 'passengers'
+    table_name = 'users'
+
+    def __init__(self, **kwargs):
+        super(Passenger, self).__init__(**kwargs)

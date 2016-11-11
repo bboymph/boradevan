@@ -36,7 +36,3 @@ class User(BaseModel):
     @classmethod
     def get_by_email(cls, email):
         return cls.get_by_key(email)
-
-    @classmethod
-    def get_by_type(cls, access_type):
-        return cls.get_by_type(access_type)

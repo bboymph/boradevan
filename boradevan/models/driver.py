@@ -12,4 +12,8 @@ from boradevan.models.user import User
 
 class Driver(User):
 
-    table_name = 'drivers'
+    table_name = 'users'
+
+    def __init__(self, **kwargs):
+        super(Driver, self).__init__(**kwargs)
+

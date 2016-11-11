@@ -11,6 +11,7 @@ from flask import Blueprint, request, jsonify
 from boradevan.permissions import login_required
 from boradevan.schemas.passenger import PassengerSchema
 from boradevan.models.passenger import Passenger
+from boradevan.models.user import User
 
 
 passenger = Blueprint('passenger', __name__)
@@ -29,8 +30,8 @@ def create():
             'errors': errors
         }), 400
 
-    passenger = Passenger(**data)
-    result = Passenger.insert(passenger)
+    user = Passenger(**data)
+    result = User.insert(user)
 
     if result['errors']:
         return jsonify({
@@ -38,5 +39,5 @@ def create():
         }), 409
 
     return jsonify({
-        'email': passenger['email']
+        'email': user['email']
     }), 201

@@ -28,16 +28,11 @@ def create():
         return jsonify({
             'errors': errors
         }), 400
-
-
-    driver = Driver(**data)
-
-    user = User(name=driver['name'], email=driver['email'])
+    user = Driver(itineraries=[], **data)
     user.set_access_type('driver')
-    user.set_password(driver['password'])
+    user.set_password(data['password'])
 
-    del driver['password']
-    result = Driver.insert(driver)
+    result = User.insert(user)
 
     if result['errors']:
         return jsonify({
@@ -47,5 +42,5 @@ def create():
     User.insert(user)
 
     return jsonify({
-        'email': driver['email']
+        'email': user['email']
     }), 201
