@@ -12,7 +12,10 @@ from boradevan.models.user import User
 
 class Passenger(User):
 
+    USER_TYPE = 'passenger'
+
     table_name = 'users'
 
     def __init__(self, **kwargs):
         super(Passenger, self).__init__(**kwargs)
+        self.set_access_type(self.USER_TYPE)

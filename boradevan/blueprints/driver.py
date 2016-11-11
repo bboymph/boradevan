@@ -28,8 +28,8 @@ def create():
         return jsonify({
             'errors': errors
         }), 400
+
     user = Driver(itineraries=[], **data)
-    user.set_access_type('driver')
     user.set_password(data['password'])
 
     result = User.insert(user)

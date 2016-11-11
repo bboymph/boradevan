@@ -27,7 +27,18 @@ class User(BaseModel):
 
     def generate_token(self, secret_key):
         return jwt.encode(dict(email=self['email'],
-                               access_type=self['access_type']), key=secret_key)
+                               access_type=self['access_type']),
+                          key=secret_key)
+
+    @property
+    def is_driver(self):
+        from boradevan.models.driver import Driver
+        return self['access_type'] == Driver.USER_TYPE
+
+    @property
+    def is_passenger(self):
+        from boradevan.models.passenger import Passenger
+        return self['access_type'] == Passenger.USER_TYPE
 
     @classmethod
     def decode_token(cls, token, secret_key):

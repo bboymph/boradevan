@@ -13,6 +13,8 @@ from boradevan.blueprints.itinerary import itinerary
 from boradevan.blueprints.driver import driver
 from boradevan.blueprints.passenger import passenger
 from boradevan.models.user import User
+from boradevan.models.passenger import Passenger
+from boradevan.models.driver import Driver
 from boradevan.db import db, setup_database
 
 
@@ -34,6 +36,12 @@ def create_app(config):
 
         payload = User.decode_token(token, app.config['SECRET_KEY'])
         g.user = User.get_by_email(payload['email'])
+
+        if g.user.is_driver:
+            g.user = Driver(**g.user)
+
+        if g.user.is_passenger:
+            g.user = Passenger(**g.user)
 
     @app.route('/')
     def home():

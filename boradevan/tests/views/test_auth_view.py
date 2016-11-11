@@ -9,24 +9,58 @@
 
 from flask import url_for, json
 from boradevan.tests import AppTestCase
-from boradevan.models.user import User
+from boradevan.models.driver import Driver
+from boradevan.models.passenger import Passenger
 
 
-class AuthViewTestCase(AppTestCase):
+class DriverAuthViewTestCase(AppTestCase):
 
     def setUp(self):
-        super(AuthViewTestCase, self).setUp()
+        super(DriverAuthViewTestCase, self).setUp()
 
-        self.user1 = User(name='Teste', email='test@example.com')
-        self.user1.set_access_type('passenger')
-        self.user1.set_password('secret123')
+        self.user_driver = Driver(name='Test',
+                                  email='driver@example.com')
+        self.user_driver.set_password('secret123')
+        Driver.insert(self.user_driver)
 
-        User.insert(self.user1)
-
-    def test_user_auth_ok(self):
+    def test_user_driver_auth_ok(self):
         response = self.client.post(url_for('auth.login'), data=json.dumps({
-            'name': 'Teste',
-            'email': 'test@example.com',
+            'email': 'driver@example.com',
+            'access_type': 'driver',
+            'password': 'secret123'
+        }), headers={
+            'Content-Type': 'application/json'
+        })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('token' in response.json)
+
+    def test_user_driver_auth_fail(self):
+        response = self.client.post(url_for('auth.login'), data=json.dumps({
+            'email': 'driver@example.com',
+            'access_type': 'driver',
+            'password': 'wrong789'
+        }), headers={
+            'Content-Type': 'application/json'
+        })
+
+        self.assertEqual(response.status_code, 401)
+        self.assertTrue('token' not in response.json)
+
+
+class PassengerAuthViewTestCase(AppTestCase):
+
+    def setUp(self):
+        super(PassengerAuthViewTestCase, self).setUp()
+
+        self.user_passenger = Passenger(name='Test',
+                                        email='passenger@example.com')
+        self.user_passenger.set_password('secret123')
+        Passenger.insert(self.user_passenger)
+
+    def test_user_passenger_auth_ok(self):
+        response = self.client.post(url_for('auth.login'), data=json.dumps({
+            'email': 'passenger@example.com',
             'access_type': 'passenger',
             'password': 'secret123'
         }), headers={
@@ -36,10 +70,9 @@ class AuthViewTestCase(AppTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue('token' in response.json)
 
-    def test_user_auth_fail(self):
+    def test_user_passenger_auth_fail(self):
         response = self.client.post(url_for('auth.login'), data=json.dumps({
-            'name': 'Teste',
-            'email': 'test@example.com',
+            'email': 'passenger@example.com',
             'access_type': 'passenger',
             'password': 'wrong789'
         }), headers={
