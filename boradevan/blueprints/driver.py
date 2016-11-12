@@ -38,9 +38,7 @@ def create():
         return jsonify({
             'errors': result['first_error']
         }), 409
-
-    User.insert(user)
-
+    
     return jsonify({
         'email': user['email']
     }), 201
