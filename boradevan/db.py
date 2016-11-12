@@ -16,7 +16,8 @@ _tables = {
     'users': {
         'primary_key': 'email'
     },
-    'itineraries': {}
+    'itineraries': {},
+    'notification_absence': {}
 }
 
 

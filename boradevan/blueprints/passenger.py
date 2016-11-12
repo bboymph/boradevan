@@ -7,8 +7,13 @@
     :license: see LICENSE for more details.
 """
 
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, g
+
+from boradevan.models.itinerary import Itinerary
+
 from boradevan.permissions import login_required
+from boradevan.schemas.notification_absence import NotificationAbsenceSchema
+from boradevan.models.notification_absence import NotificationAbsence
 from boradevan.schemas.passenger import PassengerSchema
 from boradevan.models.passenger import Passenger
 from boradevan.models.user import User
@@ -40,4 +45,40 @@ def create():
 
     return jsonify({
         'email': user['email']
+    }), 201
+
+
+@passenger.route('/<itinerary_id>/messages', methods=['POST'])
+@login_required
+def notify(itinerary_id):
+    data = request.get_json()
+
+    itinerary = Itinerary.get_by_key(itinerary_id)
+
+    if not itinerary:
+        return jsonify({
+            'errors': ['Itinerary not found']
+        }), 404
+
+    schema = NotificationAbsenceSchema(strict=True)
+    data, errors = schema.load(data)
+
+    if errors:
+        return jsonify({
+            'errors': errors
+        }), 400
+
+    notification = NotificationAbsence(**data)
+    notification['itinerary_id'] = itinerary['id']
+    notification['passenger_id'] = g.user['email']
+
+    result = NotificationAbsence.insert(notification)
+
+    if result['errors']:
+        return jsonify({
+            'errors': result['first_error']
+        }), 409
+
+    return jsonify({
+        'message': notification['message']
     }), 201
