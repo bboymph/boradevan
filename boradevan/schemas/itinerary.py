@@ -17,19 +17,20 @@ class ItinerarySchema(Schema):
     _time_regex = re.compile(r'^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$')
 
     name = fields.Str(required=True)
-    start_time = fields.Str(required=True)
-    end_time = fields.Str(required=True)
+    timestart = fields.Str(required=True)
+    endtime = fields.Str(required=True)
+    weekdays = fields.Str(required=True)
     destination = fields.Nested(AddressSchema, required=True)
 
     def _validate_time(self, data):
         if self._time_regex.match(data) is None:
             raise ValidationError('Invalid time')
 
-    @validates('start_time')
+    @validates('timestart')
     def validate_start_time(self, data):
         self._validate_time(data)
 
-    @validates('end_time')
+    @validates('endtime')
     def validate_end_time(self, data):
         self._validate_time(data)
 

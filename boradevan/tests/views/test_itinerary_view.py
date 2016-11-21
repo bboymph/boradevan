@@ -27,8 +27,8 @@ class ItineraryCreateViewTestCase(AppTestCase):
 
         response = self.client.post(url, data=json.dumps({
             'name': 'IT123',
-            'start_time': '06:00',
-            'end_time': '07:00',
+            'timestart': '06:00',
+            'endtime': '07:00',
             'destination': {
                 'street': 'Street 1',
                 'neighborhood': 'Neigh 1',
@@ -36,7 +36,8 @@ class ItineraryCreateViewTestCase(AppTestCase):
                 'state': 'AB',
                 'lat': -27.4578,
                 'lng': -45.8796
-            }
+            },
+            'weekdays': 'Seg Ter Qua Qui Sex'
         }), headers={
             'Content-Type': 'application/json',
             'Authorization': self.test_driver_token
@@ -46,8 +47,8 @@ class ItineraryCreateViewTestCase(AppTestCase):
 
         itinerary = Itinerary.find_one({
             'name': 'IT123',
-            'start_time': '06:00',
-            'end_time': '07:00',
+            'timestart': '06:00',
+            'endtime': '07:00',
             'destination': {
                 'street': 'Street 1',
                 'neighborhood': 'Neigh 1',
@@ -56,6 +57,7 @@ class ItineraryCreateViewTestCase(AppTestCase):
                 'lat': -27.4578,
                 'lng': -45.8796
             },
+            'weekdays': 'Seg Ter Qua Qui Sex',
             'owner': 'test@example.com',
             'drivers': []
         })
@@ -79,6 +81,34 @@ class ItineraryAddPartnerTestCase(AppTestCase):
 
     def test_add_partner_itinerary(self):
         url = url_for('itinerary.add_partner', itinerary_id='1')
+
+        response = self.client.post(url, data=json.dumps({
+            'email': 'test@example.com'
+        }), headers={
+            'Content-Type': 'application/json',
+            'Authorization': self.test_driver_token
+        })
+
+        self.assertEqual(response.status_code, 201)
+
+
+class ItineraryGetDriverItineraries(AppTestCase):
+
+    def setUp(self):
+        super(ItineraryGetDriverItineraries, self).setUp()
+
+        self.test_driver = Driver(email='test@example.com')
+        Driver.insert(self.test_driver)
+
+        secret_key = self.app.config['SECRET_KEY']
+        self.test_driver_token = self.test_driver.generate_token(secret_key)
+
+        self.test_itinerary = Itinerary(id='1', name='test_itinerary', owner='test@example.com',
+                                        timestart='12:00', endtime='13:00', weekdays='Seg')
+        Itinerary.insert(self.test_itinerary)
+
+    def test_get_driver_itineraries(self):
+        url = url_for('itinerary.list_driver_itineraries')
 
         response = self.client.post(url, data=json.dumps({
             'email': 'test@example.com'

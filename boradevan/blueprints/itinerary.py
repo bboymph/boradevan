@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    boradevan.views.itinerary
-    ~~~~~~~~~~~~~~~~~~~~~~~~~
+    boradevan.views.itinerary.py
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     :copyright: (c) 2016 by Zapen (see AUTHORS).
     :license: see LICENSE for more details.
@@ -46,6 +46,15 @@ def create():
     return jsonify({
         'id': itinerary.get_id()
     }), 201
+
+
+@itinerary.route('/driver', methods=['GET'])
+@login_required
+def list_driver_itineraries():
+
+    itineraries = Itinerary.find_by_owner(g.user['email'])
+
+    return jsonify({"objects": list(itineraries)}), 201
 
 
 @itinerary.route('/<itinerary_id>/drivers', methods=['POST'])
