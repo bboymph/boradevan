@@ -48,8 +48,8 @@ def create_app(config):
         return 'ok'
 
     app.register_blueprint(auth, url_prefix='/auth')
-    app.register_blueprint(itinerary, url_prefix='/itinerary')
-    app.register_blueprint(driver, url_prefix='/driver')
-    app.register_blueprint(passenger, url_prefix='/passenger')
+    app.register_blueprint(itinerary, url_prefix='/itineraries')
+    app.register_blueprint(driver, url_prefix='/drivers')
+    app.register_blueprint(passenger, url_prefix='/passengers')
 
     return app
