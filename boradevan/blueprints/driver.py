@@ -14,7 +14,7 @@ from boradevan.schemas.driver import DriverSchema
 from boradevan.models.driver import Driver
 
 
-driver = Blueprint('driver', __name__)
+driver = Blueprint('drivers', __name__)
 
 
 @driver.route('/', methods=['POST'])

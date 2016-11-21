@@ -15,7 +15,7 @@ from boradevan.models.driver import Driver
 class DriverViewTestCase(AppTestCase):
 
     def test_create_driver(self):
-        url = url_for('driver.create')
+        url = url_for('drivers.create')
 
         response = self.client.post(url, data=json.dumps({
             'name': 'driver1',
