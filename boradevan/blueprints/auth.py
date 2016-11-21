@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    boradevan.views.auth
-    ~~~~~~~~~~~~~~~~~~~~
+    boradevan.views.auth.py
+    ~~~~~~~~~~~~~~~~~~~~~~~
 
     :copyright: (c) 2016 by Zapen (see AUTHORS).
     :license: see LICENSE for more details.
@@ -34,5 +34,6 @@ def login():
     secret_key = current_app.config['SECRET_KEY']
 
     return jsonify({
-        'token': user.generate_token(secret_key)
+        'token': user.generate_token(secret_key),
+        'access_type': user['access_type']
     })
