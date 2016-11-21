@@ -8,6 +8,7 @@
 """
 
 import rethinkdb as r
+
 from boradevan.db import db
 
 
@@ -51,3 +52,11 @@ class BaseModel(dict):
                     .limit(1) \
                     .run(db):
             return doc
+
+    @classmethod
+    def find(cls, filters):
+        for doc in r.table(cls.table_name) \
+                .filter(filters) \
+                .limit(99) \
+                .run(db):
+            yield doc

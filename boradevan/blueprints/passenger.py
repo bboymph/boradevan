@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    boradevan.views.itinerary.py
-    ~~~~~~~~~~~~~~~~~~~~~~~~~
+    boradevan.views.passenger.py
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     :copyright: (c) 2016 by Zapen (see AUTHORS).
     :license: see LICENSE for more details.
@@ -13,8 +13,8 @@ from boradevan.models.itinerary import Itinerary
 
 from boradevan.permissions import login_required
 from boradevan.schemas.notification_absence import NotificationAbsenceSchema
-from boradevan.models.notification_absence import NotificationAbsence
 from boradevan.schemas.passenger import PassengerSchema
+from boradevan.models.notification_absence import NotificationAbsence
 from boradevan.models.passenger import Passenger
 from boradevan.models.user import User
 
@@ -27,6 +27,9 @@ passenger = Blueprint('passenger', __name__)
 def create():
     data = request.get_json()
 
+    itinerary = Itinerary.get_by_key(data['itinerary_id'])
+    data.pop("itinerary_id")
+
     schema = PassengerSchema(strict=True)
     data, errors = schema.load(data)
 
@@ -37,6 +40,9 @@ def create():
 
     user = Passenger(**data)
     result = User.insert(user)
+
+    itinerary.add_passenger(user)
+    Itinerary.update(itinerary)
 
     if result['errors']:
         return jsonify({
