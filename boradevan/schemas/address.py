@@ -16,5 +16,5 @@ class AddressSchema(Schema):
     neighborhood = fields.Str(required=True)
     city = fields.Str(required=True)
     state = fields.Str(required=True)
-    lat = fields.Float(required=True)
-    lng = fields.Float(required=True)
+    latitude = fields.Float(required=True)
+    longitude = fields.Float(required=True)
