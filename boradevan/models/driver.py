@@ -22,3 +22,7 @@ class Driver(User):
 
     def insert_itinerary(self, itinerary):
         self['itineraries'].append(itinerary['id'])
+
+    @classmethod
+    def get_all_drivers(cls, access_type):
+        return cls.find({"access_type": access_type})

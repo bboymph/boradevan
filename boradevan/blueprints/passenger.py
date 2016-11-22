@@ -39,6 +39,7 @@ def create():
         }), 400
 
     user = Passenger(**data)
+    user.set_password('123')
     result = User.insert(user)
 
     itinerary.add_passenger(user)
@@ -76,7 +77,6 @@ def notify(itinerary_id):
 
     notification = NotificationAbsence(**data)
     notification['itinerary_id'] = itinerary['id']
-    notification['passenger_id'] = g.user['email']
 
     result = NotificationAbsence.insert(notification)
 

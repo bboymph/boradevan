@@ -57,6 +57,15 @@ def list_driver_itineraries():
     return jsonify({"objects": list(itineraries)}), 201
 
 
+@itinerary.route('/passenger', methods=['GET'])
+@login_required
+def list_passenger_itineraries():
+
+    itineraries = Itinerary.find_by_passenger(g.user['email'])
+
+    return jsonify({"objects": list(itineraries)}), 201
+
+
 @itinerary.route('/<itinerary_id>/drivers', methods=['POST'])
 @login_required
 def add_partner(itinerary_id):

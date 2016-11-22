@@ -17,7 +17,7 @@ _tables = {
         'primary_key': 'email'
     },
     'itineraries': {},
-    'notification_absence': {}
+    'absence_notification': {}
 }
 
 

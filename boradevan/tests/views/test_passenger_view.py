@@ -84,7 +84,8 @@ class PassengerNotificationTestCase(AppTestCase):
 
         response = self.client.post(url, data=json.dumps({
             'date': '10/12/16',
-            'message': 'Absence'
+            'message': 'Absence',
+            'email': 'passenger@example.com'
         }), headers={
             'Content-Type': 'application/json',
             'Authorization': self.test_user_token

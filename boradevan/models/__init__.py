@@ -60,3 +60,9 @@ class BaseModel(dict):
                 .limit(99) \
                 .run(db):
             yield doc
+
+    @classmethod
+    def find_passenger_itineraries(cls, filters):
+        return r.table('itineraries').filter(lambda doc :
+                doc['passengers'].contains(lambda passenger: passenger['email'].eq(filters))) \
+                .run(db)

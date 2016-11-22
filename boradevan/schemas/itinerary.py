@@ -38,3 +38,5 @@ class ItinerarySchema(Schema):
 class ItineraryAddPartnerSchema(Schema):
 
     email = fields.Email(required=True)
+    name = fields.Str(required=True)
+    phone = fields.Str(required=True)

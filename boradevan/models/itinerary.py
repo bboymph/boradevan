@@ -20,7 +20,7 @@ class Itinerary(BaseModel):
                                         **kwargs)
 
     def add_partner(self, driver):
-        self['partners'].append(driver['email'])
+        self['drivers'].append(driver['email'])
 
     def add_passenger(self, passenger):
         self['passengers'].append({'email': passenger['email'],
@@ -30,3 +30,7 @@ class Itinerary(BaseModel):
     @classmethod
     def find_by_owner(cls, email):
         return cls.find({"owner": email})
+
+    @classmethod
+    def find_by_passenger(cls, email):
+        return cls.find_passenger_itineraries(email)
