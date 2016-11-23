@@ -10,11 +10,11 @@
 from boradevan.models import BaseModel
 
 
-class NotificationAbsence(BaseModel):
+class AbsenceNotification(BaseModel):
 
     table_name = 'notification_absence'
 
     table_name = 'absence_notification'
 
     def __init__(self, **kwargs):
-        super(NotificationAbsence, self).__init__(**kwargs)
+        super(AbsenceNotification, self).__init__(**kwargs)

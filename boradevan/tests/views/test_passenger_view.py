@@ -9,7 +9,7 @@
 
 from flask import url_for, json
 
-from boradevan.models.notification_absence import NotificationAbsence
+from boradevan.models.absence_notification import AbsenceNotification
 from boradevan.tests import AppTestCase
 from boradevan.models.user import User
 from boradevan.models.driver import Driver
@@ -93,11 +93,11 @@ class PassengerNotificationTestCase(AppTestCase):
 
         self.assertEqual(response.status_code, 201)
 
-        notification = NotificationAbsence.find_one({
+        notification = AbsenceNotification.find_one({
             'itinerary_id': '1',
-            'passenger_id': 'passenger@example.com',
+            'email': 'passenger@example.com',
             'date': '10/12/16',
-            'message': 'Absence'
+            'message': 'Absence',
         })
 
         self.assertIsNotNone(notification)

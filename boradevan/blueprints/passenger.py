@@ -12,9 +12,9 @@ from flask import Blueprint, request, jsonify, g
 from boradevan.models.itinerary import Itinerary
 
 from boradevan.permissions import login_required
-from boradevan.schemas.notification_absence import NotificationAbsenceSchema
+from boradevan.schemas.absence_notification import AbsenceNotificationSchema
 from boradevan.schemas.passenger import PassengerSchema
-from boradevan.models.notification_absence import NotificationAbsence
+from boradevan.models.absence_notification import AbsenceNotification
 from boradevan.models.passenger import Passenger
 from boradevan.models.user import User
 
@@ -67,7 +67,7 @@ def notify(itinerary_id):
             'errors': ['Itinerary not found']
         }), 404
 
-    schema = NotificationAbsenceSchema(strict=True)
+    schema = AbsenceNotificationSchema(strict=True)
     data, errors = schema.load(data)
 
     if errors:
@@ -75,10 +75,11 @@ def notify(itinerary_id):
             'errors': errors
         }), 400
 
-    notification = NotificationAbsence(**data)
+    notification = AbsenceNotification(**data)
     notification['itinerary_id'] = itinerary['id']
+    notification['email'] = g.user['email']
 
-    result = NotificationAbsence.insert(notification)
+    result = AbsenceNotification.insert(notification)
 
     if result['errors']:
         return jsonify({

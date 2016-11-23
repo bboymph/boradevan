@@ -12,8 +12,7 @@ from marshmallow import Schema, ValidationError, fields, validates
 from boradevan.schemas.address import AddressSchema
 
 
-class NotificationAbsenceSchema(Schema):
+class AbsenceNotificationSchema(Schema):
 
     date = fields.Str(required=True)
     message = fields.Str(required=True)
-    email = fields.Str(required=True)
