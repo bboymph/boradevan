@@ -28,3 +28,10 @@ class TestingConfig(BaseConfig):
 
     TESTING = True
     DATABASE_NAME = getenv('DATABASE_NAME', 'boradevan_test')
+
+class ProductionConfig(BaseConfig):
+
+    DEBUG = False
+    TESTING = False
+
+

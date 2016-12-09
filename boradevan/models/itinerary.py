@@ -14,8 +14,9 @@ class Itinerary(BaseModel):
 
     table_name = 'itineraries'
 
-    def __init__(self, drivers=[], partners=[], **kwargs):
-        super(Itinerary, self).__init__(drivers=drivers,
+    def __init__(self, driver_location={}, drivers=[], partners=[], **kwargs):
+        super(Itinerary, self).__init__(driver_location=driver_location,
+                                        drivers=drivers,
                                         partners=partners,
                                         **kwargs)
 
@@ -26,6 +27,14 @@ class Itinerary(BaseModel):
         self['passengers'].append({'email': passenger['email'],
                                    'name': passenger['name'],
                                    'boarding_address': passenger['boarding_address']})
+
+    def update_driver_location(self, location):
+        self['driver_location'] = {'street': location['street'],
+                                   'neighborhood': location['neighborhood'],
+                                   'city': location['city'],
+                                   'state': location['state'],
+                                   'latitude': location['latitude'],
+                                   'longitude': location['longitude']}
 
     @classmethod
     def find_by_owner(cls, email):

@@ -98,3 +98,29 @@ def add_partner(itinerary_id):
     return jsonify({
         'id': itinerary_id
     }), 201
+
+@itinerary.route('/<itinerary_id>/location/drivers', methods=['POST'])
+@login_required
+def update_driver_location(itinerary_id):
+    data = request.get_json()
+    print(data)
+    itinerary = Itinerary.get_by_key(itinerary_id)
+
+    if not itinerary:
+        return jsonify({
+            'errors': ['Itinerary not found']
+        }), 404
+
+    driver = Driver.get_by_email(g.user['email'])
+
+    if not driver:
+        return jsonify({
+            'errors': ['Driver not found.']
+        }), 404
+
+    itinerary.update_driver_location(data)
+    Itinerary.update(itinerary)
+
+    return jsonify({
+        'id': itinerary_id
+    }), 201
