@@ -21,6 +21,8 @@ driver = Blueprint('drivers', __name__)
 def create():
     data = request.get_json()
 
+    print(request.headers)
+
     schema = DriverSchema(strict=True)
     data, errors = schema.load(data)
 
@@ -38,7 +40,7 @@ def create():
         return jsonify({
             'errors': result['first_error']
         }), 409
-    
+
     return jsonify({
         'email': user['email']
     }), 201

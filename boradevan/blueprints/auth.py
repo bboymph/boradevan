@@ -16,6 +16,7 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['POST'])
 def login():
+    print(request.headers)
     data = request.get_json()
 
     schema = LoginSchema(strict=True)
@@ -26,7 +27,7 @@ def login():
 
     user = User.get_by_email(data['email'])
 
-    if not user.check_password(data['password']):
+    if user is None or not user.check_password(data['password']):
         return jsonify({
             'errors': ['Wrong email/password']
         }), 401
