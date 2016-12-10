@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-"""
+'''
     boradevan.tests.views.test_itinerary_view
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     :copyright: (c) 2016 by Zapen (see AUTHORS).
     :license: see LICENSE for more details.
-"""
+'''
 
 from flask import url_for, json
 from boradevan.tests import AppTestCase
@@ -140,8 +140,12 @@ class ItineraryUpdateDriverLocation(AppTestCase):
         url = url_for('itinerary.update_driver_location', itinerary_id='1')
 
         response = self.client.post(url, data=json.dumps({
-            'latitude': -27.4578,
-            'longitude': -45.8796
+            'city': 'São José dos Campos',
+            'latitude': -23.2575824,
+            'longitude': -45.8970541,
+            'neighborhood': 'Residencial Bosque dos Ipes',
+            'state': 'São Paulo',
+            'street': 'Rua Luíz Omar da Silva'
         }), headers={
             'Content-Type': 'application/json',
             'Authorization': self.test_driver_token

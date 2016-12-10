@@ -103,7 +103,7 @@ def add_partner(itinerary_id):
 @login_required
 def update_driver_location(itinerary_id):
     data = request.get_json()
-    print(data)
+
     itinerary = Itinerary.get_by_key(itinerary_id)
 
     if not itinerary:
@@ -124,3 +124,13 @@ def update_driver_location(itinerary_id):
     return jsonify({
         'id': itinerary_id
     }), 201
+
+
+@itinerary.route('/<itinerary_id>/location', methods=['GET'])
+@login_required
+def get_driver_location(itinerary_id):
+
+    itinerary = Itinerary.get_by_key(itinerary_id)
+    print(itinerary['driver_location'])
+
+    return jsonify(itinerary['driver_location']), 201
