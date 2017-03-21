@@ -1,5 +1,0 @@
-*.py[co]
-.coverage
-.idea
-env
-venv

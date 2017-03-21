@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    boradevan.schemas.driver.py
+    boradevan.schemas.__init__.py
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     :copyright: (c) 2016 by Zapen (see AUTHORS).

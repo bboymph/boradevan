@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    boradevan.models.driver.py
+    boradevan.models.__init__.py
     ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     :copyright: (c) 2016 by Zapen (see AUTHORS).

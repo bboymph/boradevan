@@ -70,7 +70,7 @@ def list_passenger_itineraries():
 @login_required
 def add_partner(itinerary_id):
     data = request.get_json()
-
+    print(data)
     itinerary = Itinerary.get_by_key(itinerary_id)
 
     if not itinerary:
@@ -78,15 +78,15 @@ def add_partner(itinerary_id):
             'errors': ['Itinerary not found']
         }), 404
 
-    schema = ItineraryAddPartnerSchema(strict=True)
+    '''schema = ItineraryAddPartnerSchema(strict=True)
     data, errors = schema.load(data)
 
     if errors:
         return jsonify({
             'errors': errors
-        }), 409
+        }), 409'''
 
-    driver = Driver.get_by_email(data['email'])
+    driver = Driver.get_by_email(data['name'])
     if not driver:
         return jsonify({
             'errors': ['Driver not found.']

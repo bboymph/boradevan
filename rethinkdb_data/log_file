@@ -1,0 +1,46 @@
+2017-03-20T21:51:01.026116865 0.101876s notice: Recursively removing directory /home/rodrigo/??rea de Trabalho/workspaces/boradevan-backend/rethinkdb_data/tmp
+2017-03-20T21:51:01.031211971 0.106970s notice: Initializing directory /home/rodrigo/??rea de Trabalho/workspaces/boradevan-backend/rethinkdb_data
+2017-03-20T21:51:01.031298565 0.107056s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/home/rodrigo/??rea de Trabalho/workspaces/boradevan-backend/rethinkdb_data' did not already exist or is empty.)
+2017-03-20T21:51:01.031321734 0.107079s notice: Running rethinkdb 2.3.5~0xenial (GCC 5.3.1)...
+2017-03-20T21:51:01.034480710 0.110241s notice: Running on Linux 4.8.0-36-generic x86_64
+2017-03-20T21:51:01.034540833 0.110299s notice: Loading data from directory /home/rodrigo/??rea de Trabalho/workspaces/boradevan-backend/rethinkdb_data
+2017-03-20T21:51:01.056825716 0.132584s info: Automatically using cache size of 2172 MB
+2017-03-20T21:51:01.057254465 0.133012s notice: Listening for intracluster connections on port 29015
+2017-03-20T21:51:01.058078505 0.133836s notice: Listening for client driver connections on port 28015
+2017-03-20T21:51:01.058199449 0.133957s notice: Listening for administrative HTTP connections on port 8080
+2017-03-20T21:51:01.058203170 0.133961s notice: Listening on cluster addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-03-20T21:51:01.058205816 0.133963s notice: Listening on driver addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-03-20T21:51:01.058208597 0.133966s notice: Listening on http addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-03-20T21:51:01.058210811 0.133968s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-03-20T21:51:01.058213744 0.133971s notice: Server ready, "rodrigo_linux_o4b" 0f302cd6-10fd-4dfe-9e1a-16b4708a6f03
+2017-03-20T21:52:44.332912581 103.408671s info: Table ac1a2f67-3f94-4310-83fc-3f292fc4ea8b: Starting a new Raft election for term 1.
+2017-03-20T21:52:44.333088812 103.408847s info: Table ac1a2f67-3f94-4310-83fc-3f292fc4ea8b: Added replica on this server.
+2017-03-20T21:52:44.335546125 103.411304s info: Table ac1a2f67-3f94-4310-83fc-3f292fc4ea8b: This server is Raft leader for term 1. Latest log index is 0.
+2017-03-20T21:52:44.616751430 103.692509s info: Table 670b156d-51aa-4f6d-90ed-70a29c6477c8: Starting a new Raft election for term 1.
+2017-03-20T21:52:44.616893184 103.692651s info: Table 670b156d-51aa-4f6d-90ed-70a29c6477c8: Added replica on this server.
+2017-03-20T21:52:44.619232173 103.694990s info: Table 670b156d-51aa-4f6d-90ed-70a29c6477c8: This server is Raft leader for term 1. Latest log index is 0.
+2017-03-20T21:52:44.900308310 103.976066s info: Table 7eba36f0-fc9c-4925-aca3-ba0e2ca74ffa: Added replica on this server.
+2017-03-20T21:52:44.900342237 103.976100s info: Table 7eba36f0-fc9c-4925-aca3-ba0e2ca74ffa: Starting a new Raft election for term 1.
+2017-03-20T21:52:44.902693370 103.978451s info: Table 7eba36f0-fc9c-4925-aca3-ba0e2ca74ffa: This server is Raft leader for term 1. Latest log index is 0.
+2017-03-20T22:33:56.829480620 2575.905238s notice: Server got SIGTERM from pid 1, uid 0; shutting down...
+2017-03-20T22:33:56.829632933 2575.905391s notice: Shutting down client connections...
+2017-03-20T22:33:56.829757322 2575.905515s notice: All client connections closed.
+2017-03-20T22:33:56.829791986 2575.905550s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2017-03-21T10:03:51.876182529 0.166504s notice: Running rethinkdb 2.3.5~0xenial (GCC 5.3.1)...
+2017-03-21T10:03:51.878702102 0.169025s notice: Running on Linux 4.8.0-36-generic x86_64
+2017-03-21T10:03:51.878747767 0.169069s notice: Loading data from directory /home/rodrigo/??rea de Trabalho/workspaces/boradevan-backend/rethinkdb_data
+2017-03-21T10:03:51.900496110 0.190818s info: Automatically using cache size of 2361 MB
+2017-03-21T10:03:51.901612631 0.191934s notice: Listening for intracluster connections on port 29015
+2017-03-21T10:03:51.936973182 0.227295s notice: Listening for client driver connections on port 28015
+2017-03-21T10:03:51.937179268 0.227501s notice: Listening for administrative HTTP connections on port 8080
+2017-03-21T10:03:51.937182506 0.227504s notice: Listening on cluster addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-03-21T10:03:51.937184644 0.227506s notice: Listening on driver addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-03-21T10:03:51.937202356 0.227523s notice: Listening on http addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-03-21T10:03:51.937204782 0.227526s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-03-21T10:03:51.937207098 0.227528s notice: Server ready, "rodrigo_linux_o4b" 0f302cd6-10fd-4dfe-9e1a-16b4708a6f03
+2017-03-21T10:03:53.161288336 1.451610s info: Table 7eba36f0-fc9c-4925-aca3-ba0e2ca74ffa: Starting a new Raft election for term 2.
+2017-03-21T10:03:53.163972693 1.454294s info: Table 7eba36f0-fc9c-4925-aca3-ba0e2ca74ffa: This server is Raft leader for term 2. Latest log index is 3.
+2017-03-21T10:03:53.458350948 1.748672s info: Table 670b156d-51aa-4f6d-90ed-70a29c6477c8: Starting a new Raft election for term 2.
+2017-03-21T10:03:53.461517485 1.751839s info: Table 670b156d-51aa-4f6d-90ed-70a29c6477c8: This server is Raft leader for term 2. Latest log index is 3.
+2017-03-21T10:03:53.695651732 1.985973s info: Table ac1a2f67-3f94-4310-83fc-3f292fc4ea8b: Starting a new Raft election for term 2.
+2017-03-21T10:03:53.698120725 1.988442s info: Table ac1a2f67-3f94-4310-83fc-3f292fc4ea8b: This server is Raft leader for term 2. Latest log index is 3.
